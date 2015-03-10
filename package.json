@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/instanceofpro/ask/issues"
   },
-  "homepage": "https://github.com/instanceofpro/ask"
+  "homepage": "https://github.com/instanceofpro/ask",
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "gulp": "^3.8.11",
+    "gulp-jscs": "^1.4.0",
+    "gulp-jshint": "^1.9.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
 }

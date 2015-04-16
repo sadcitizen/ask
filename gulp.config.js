@@ -1,6 +1,8 @@
 'use strict';
 
-var banner = '/*! banner */',
+var _ = require('lodash'),
+    pkg = require('./package.json'),
+    banner = _.template('/*! <%= pkg.name %> - v<%= pkg.version %> - <%= timestamp %> */ \n')({ pkg: pkg, timestamp: (new Date()).toString() }),
     styles = './styles/';
 
 module.exports = {
@@ -21,7 +23,8 @@ module.exports = {
                 name: 'styles.ie8',
                 src: styles + 'styles.ie8.scss',
                 settings: {
-                    browsers: ['last 2 version', 'ie 8']
+                    browsers: ['last 2 version', 'ie 8'],
+                    banner: ''
                 }
             }
         ],

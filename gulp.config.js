@@ -43,6 +43,7 @@ module.exports = {
     },
 
     tests: {
-        src: tests + '*.spec.js'
+        src: tests + '*.spec.js',
+        reporter: 'list'
     }
 };

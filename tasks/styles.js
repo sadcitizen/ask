@@ -5,8 +5,10 @@ var _ = require('lodash'),
     sass = require('gulp-sass'),
     csso = require('gulp-csso'),
     gulpif = require('gulp-if'),
+    gutil = require('gulp-util'),
     rename = require('gulp-rename'),
     header = require('gulp-header'),
+    plumber = require('gulp-plumber'),
     prefix = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     config = require('../gulp.config'),
@@ -25,7 +27,10 @@ gulp.task('styles', function () {
     function build (bundle) {
         var settings = _.defaults(bundle.settings || {}, config.styles.settings);
 
+        gutil.log('--> Compiling \'' + gutil.colors.green(bundle.name) + '\' from \'' + gutil.colors.green(bundle.src) + '\'...');
+
         return gulp.src(bundle.src)
+            .pipe(plumber())
             .pipe(sourcemaps.init())
             .pipe(sass())
             .pipe(gulpif(settings.browsers.length, prefix({ browsers: settings.browsers })))
@@ -33,6 +38,7 @@ gulp.task('styles', function () {
             .pipe(gulpif(settings.compress, rename({ suffix: '.min' })))
             .pipe(gulpif(settings.banner.length, header(settings.banner)))
             .pipe(sourcemaps.write('.'))
+            .pipe(plumber.stop())
             .pipe(gulp.dest(paths.dest + paths.css));
     }
 

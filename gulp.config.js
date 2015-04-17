@@ -1,8 +1,12 @@
 'use strict';
 
-var _ = require('lodash'),
-    pkg = require('./package.json'),
-    banner = _.template('/*! <%= pkg.name %> - v<%= pkg.version %> - <%= timestamp %> */ \n')({ pkg: pkg, timestamp: (new Date()).toString() }),
+var pkg = require('./package.json'),
+    gutil = require('gulp-util'),
+    dtf = require('dateformat'),
+    banner = gutil.template('/*! <%= pkg.name %> - v<%= pkg.version %> - <%= timestamp %> */ \n', {
+        pkg: pkg,
+        timestamp: dtf(new Date(), 'dd/mm/yyyy hh:MM:ss TT Z'), file: 'config'
+    }),
     styles = './styles/';
 
 module.exports = {

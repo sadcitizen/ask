@@ -7,6 +7,7 @@ var pkg = require('./package.json'),
         pkg: pkg,
         timestamp: dtf(new Date(), 'dd/mm/yyyy hh:MM:ss TT Z'), file: 'config'
     }),
+    scripts = './scripts/',
     styles = './styles/',
     tests = './tests/';
 
@@ -33,10 +34,21 @@ module.exports = {
                 }
             }
         ],
-
         settings: {
             compress: true,
             browsers: ['last 2 version', 'ie 9'],
+            sourcemaps: true,
+            banner: banner
+        }
+    },
+
+    scripts: {
+        bundles: [{
+            name: 'app',
+            src: scripts + 'app.js'
+        }],
+        settings: {
+            compress: true,
             sourcemaps: true,
             banner: banner
         }

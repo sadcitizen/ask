@@ -7,7 +7,8 @@ var pkg = require('./package.json'),
         pkg: pkg,
         timestamp: dtf(new Date(), 'dd/mm/yyyy hh:MM:ss TT Z'), file: 'config'
     }),
-    styles = './styles/';
+    styles = './styles/',
+    tests = './tests/';
 
 module.exports = {
     paths: {
@@ -39,5 +40,9 @@ module.exports = {
             sourcemaps: true,
             banner: banner
         }
+    },
+
+    tests: {
+        src: tests + '*.spec.js'
     }
 };

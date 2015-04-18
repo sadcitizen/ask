@@ -7,55 +7,80 @@ var pkg = require('./package.json'),
         pkg: pkg,
         timestamp: dtf(new Date(), 'dd/mm/yyyy hh:MM:ss TT Z'), file: 'config'
     }),
-    scripts = './scripts/',
-    styles = './styles/',
-    tests = './tests/';
-
-module.exports = {
-    paths: {
+    paths = {
         dest: './build/',
+        scripts: './scripts/',
+        styles: './styles/',
+        tasks: './tasks/',
+        tests: './tests/',
         css: 'css/',
         js: 'js/',
         img: 'img/'
-    },
+    };
+
+module.exports = {
+    paths: paths,
 
     styles: {
         bundles: [
             {
                 name: 'styles',
-                src: styles + 'styles.scss'
+                src: paths.styles + 'styles.scss'
             },
             {
                 name: 'styles.ie8',
-                src: styles + 'styles.ie8.scss',
+                src: paths.styles + 'styles.ie8.scss',
                 settings: {
-                    browsers: ['last 2 version', 'ie 8'],
-                    banner: ''
+                    banner: '',
+                    browsers: ['last 2 version', 'ie 8']
                 }
             }
         ],
         settings: {
-            compress: true,
+            banner: banner,
             browsers: ['last 2 version', 'ie 9'],
-            sourcemaps: true,
-            banner: banner
+            compress: true,
+            sourcemaps: true
         }
     },
 
     scripts: {
-        bundles: [{
-            name: 'app',
-            src: scripts + 'app.js'
-        }],
+        bundles: [
+            {
+                name: 'app',
+                src: paths.scripts + 'app.js',
+                settings: {
+                    bundle: true
+                }
+            },
+            {
+                name: 'tests',
+                src: paths.tests + '*.spec.js'
+            },
+            {
+                name: 'tasks',
+                src: paths.tasks + '*.js'
+            },
+            {
+                name: 'config',
+                src: './gulp.config.js'
+            },
+            {
+                name: 'gulpfile',
+                src: './gulpfile.js'
+            }
+        ],
         settings: {
+            banner: banner,
+            bundle: false,
+            check: true,
             compress: true,
-            sourcemaps: true,
-            banner: banner
+            sourcemaps: true
         }
     },
 
     tests: {
-        src: tests + '*.spec.js',
+        src: paths.tests + '*.spec.js',
         reporter: 'list'
     }
 };

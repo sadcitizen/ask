@@ -5,7 +5,8 @@ var pkg = require('./package.json'),
     dtf = require('dateformat'),
     banner = gutil.template('/*! <%= pkg.name %> - v<%= pkg.version %> - <%= timestamp %> */ \n', {
         pkg: pkg,
-        timestamp: dtf(new Date(), 'dd/mm/yyyy hh:MM:ss TT Z'), file: 'config'
+        timestamp: dtf(new Date(), 'dd/mm/yyyy hh:MM:ss TT Z'),
+        file: 'config'
     }),
     paths = {
         dest: './build/',

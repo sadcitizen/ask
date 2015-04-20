@@ -1,6 +1,6 @@
 'use strict';
 
-var pkg = require('./package.json'),
+var pkg = require('./../package.json'),
     gutil = require('gulp-util'),
     dtf = require('dateformat'),
     banner = gutil.template('/*! <%= pkg.name %> - v<%= pkg.version %> - <%= timestamp %> */ \n', {
@@ -12,7 +12,7 @@ var pkg = require('./package.json'),
         dest: './build/',
         scripts: './scripts/',
         styles: './styles/',
-        tasks: './tasks/',
+        tasks: './gulpfiles/',
         tests: './tests/',
         css: 'css/',
         js: 'js/',
@@ -39,9 +39,7 @@ module.exports = {
         ],
         settings: {
             banner: banner,
-            browsers: ['last 2 version', 'ie 9'],
-            compress: true,
-            sourcemaps: true
+            browsers: ['last 2 version', 'ie 9']
         }
     },
 
@@ -60,23 +58,12 @@ module.exports = {
             },
             {
                 name: 'tasks',
-                src: paths.tasks + '*.js'
-            },
-            {
-                name: 'config',
-                src: './gulp.config.js'
-            },
-            {
-                name: 'gulpfile',
-                src: './gulpfile.js'
+                src: [paths.tasks + '**/*.js', './gulpfile.js']
             }
         ],
         settings: {
             banner: banner,
-            bundle: false,
-            check: true,
-            compress: true,
-            sourcemaps: true
+            bundle: false
         }
     },
 

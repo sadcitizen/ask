@@ -2,7 +2,7 @@
 
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
-    config = require('../gulp.config').tests;
+    config = require('../config.js').tests;
 
 gulp.task('tests', function () {
     return gulp.src(config.src, { read: false })

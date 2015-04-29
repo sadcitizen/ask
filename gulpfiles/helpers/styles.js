@@ -14,7 +14,7 @@ var _ = require('lodash'),
     paths = config.paths,
     defaults = {
         banner: '',
-        browsers: []
+        browsers: ['last 2 version', 'ie >= 9']
     };
 
 module.exports = function (options) {

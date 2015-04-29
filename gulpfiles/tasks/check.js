@@ -1,10 +1,15 @@
 'use strict';
 
-var gulp = require('gulp'),
+var _ = require('lodash'),
+    gulp = require('gulp'),
     jscs = require('gulp-jscs'),
     hint = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
-    config = require('../config.js');
+    config = require('../config.js'),
+    types = ['es3', 'es5', 'es6'],
+    defaults = {
+        type: 'es5'
+    };
 
 gulp.task('check', function () {
     function check(bundle) {
@@ -14,5 +19,12 @@ gulp.task('check', function () {
             .pipe(hint.reporter(stylish));
     }
 
-    config.scripts.bundles.forEach(check);
+    _.defaults(config.scripts.settings, defaults);
+
+    config.scripts.bundles.forEach(function (bundle) {
+        var settings = _.defaults(bundle.settings || {}, config.scripts.settings);
+        if (types.indexOf(settings.type) !== -1) {
+            check(bundle);
+        }
+    });
 });

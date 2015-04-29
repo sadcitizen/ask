@@ -33,7 +33,7 @@ module.exports = {
                 src: paths.styles + 'styles.ie8.scss',
                 settings: {
                     banner: '',
-                    browsers: ['last 2 version', 'ie 8']
+                    browsers: ['last 2 version', 'ie >= 8']
                 }
             }
         ],
@@ -46,10 +46,26 @@ module.exports = {
     scripts: {
         bundles: [
             {
-                name: 'app',
-                src: paths.scripts + 'app.js',
+                name: 'es5',
+                src: paths.scripts + 'es5/app.js',
                 settings: {
                     bundle: true
+                }
+            },
+            {
+                name: 'es6',
+                src: paths.scripts + 'es6/app.js',
+                settings: {
+                    bundle: true,
+                    type: 'es6'
+                }
+            },
+            {
+                name: 'typescript',
+                src: paths.scripts + 'ts/app.ts',
+                settings: {
+                    bundle: true,
+                    type: 'ts'
                 }
             },
             {

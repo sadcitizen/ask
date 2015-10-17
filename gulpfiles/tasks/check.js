@@ -19,8 +19,8 @@ gulp.task('check', function () {
     var bundles = [];
 
     config.javascript.bundles.forEach(function (bundle) {
-        if (bundle.options && bundle.options.check && bundle.all) {
-            bundles.push(bundle.all);
+        if (bundle.options && bundle.options.check) {
+            bundles.push(bundle.all ? bundle.all : bundle.entry);
         }
     });
 

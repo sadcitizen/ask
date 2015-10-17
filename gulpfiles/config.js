@@ -25,12 +25,12 @@ module.exports = {
     styles: {
         bundles: [
             {
-                entry: paths.styles + 'scss/styles.scss',
-                output: paths.dest + paths.css + 'scss/styles.css'
+                entry: paths.styles + 'styles.scss',
+                output: paths.dest + paths.css + 'styles.css'
             },
             {
-                entry: paths.styles + 'scss/styles.ie8.scss',
-                output: paths.dest + paths.css + 'scss/styles.ie8.css',
+                entry: paths.styles + 'styles.ie8.scss',
+                output: paths.dest + paths.css + 'styles.ie8.css',
                 options: {
                     banner: '',
                     browsers: ['last 2 version', 'ie >= 8']
@@ -46,36 +46,17 @@ module.exports = {
     javascript: {
         bundles: [
             {
-                entry: paths.scripts + 'es6/app.js',
-                all: paths.scripts + 'es6/**/*.js',
-                output: paths.dest + paths.js + 'es6/app.js',
+                entry: paths.scripts + 'app.js',
+                all: paths.scripts + '**/*.js',
+                output: paths.dest + paths.js + 'app.js',
                 options: {
                     banner: '',
                     check: true
                 }
             },
             {
-                entry: paths.scripts + 'es6/vendor.js',
-                output: paths.dest + paths.js + 'es6/vendor.js'
-            }
-        ],
-        options: {
-            banner: banner
-        }
-    },
-
-    typescript: {
-        bundles: [
-            {
-                entry: paths.scripts + 'ts/app.ts',
-                output: paths.dest + paths.js + 'ts/app.ts',
-                options: {
-                    banner: ''
-                }
-            },
-            {
-                entry: paths.scripts + 'ts/vendor.ts',
-                output: paths.dest + paths.js + 'ts/vendor.ts'
+                entry: paths.scripts + 'vendor.js',
+                output: paths.dest + paths.js + 'vendor.js'
             }
         ],
         options: {

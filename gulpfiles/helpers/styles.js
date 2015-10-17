@@ -11,7 +11,6 @@ var _ = require('lodash'),
     prefix = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     config = require('../config.js'),
-    paths = config.paths,
     defaults = {
         banner: '',
         browsers: ['last 2 version', 'ie >= 9']
@@ -21,20 +20,23 @@ module.exports = function (options) {
     _.defaults(config.styles.settings, defaults, options);
 
     function build(bundle) {
-        var settings = _.defaults(bundle.settings || {}, config.styles.settings);
+        var settings = _.defaults(bundle.settings || {}, config.styles.settings),
+            dest = bundle.output.split('/').slice(0, -1).join('/'),
+            filename = bundle.output.split('/').pop(),
+            basename = filename.split('.').slice(0, -1).join('.');
 
-        return gulp.src(bundle.src)
+        return gulp.src(bundle.entry)
             .pipe(plumber())
             .pipe(gulpif(settings.sourcemaps, sourcemaps.init()))
             .pipe(sass())
             .pipe(gulpif(settings.browsers.length, prefix({ browsers: settings.browsers })))
             .pipe(gulpif(settings.compress, csso()))
-            .pipe(rename({ basename: bundle.name }))
+            .pipe(rename({ basename: basename }))
             .pipe(gulpif(settings.compress, rename({ suffix: '.min' })))
             .pipe(gulpif(settings.banner.length, header(settings.banner)))
             .pipe(gulpif(settings.sourcemaps, sourcemaps.write('.')))
             .pipe(plumber.stop())
-            .pipe(gulp.dest(paths.dest + paths.css));
+            .pipe(gulp.dest(dest));
     }
 
     config.styles.bundles.forEach(build);

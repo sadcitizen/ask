@@ -25,12 +25,12 @@ module.exports = {
     styles: {
         bundles: [
             {
-                name: 'styles',
-                src: paths.styles + 'styles.scss'
+                entry: paths.styles + 'scss/styles.scss',
+                output: paths.dest + paths.css + 'scss/styles.css'
             },
             {
-                name: 'styles.ie8',
-                src: paths.styles + 'styles.ie8.scss',
+                entry: paths.styles + 'scss/styles.ie8.scss',
+                output: paths.dest + paths.css + 'scss/styles.ie8.css',
                 settings: {
                     banner: '',
                     browsers: ['last 2 version', 'ie >= 8']
@@ -39,52 +39,52 @@ module.exports = {
         ],
         settings: {
             banner: banner,
-            browsers: ['last 2 version', 'ie 9']
+            browsers: ['last 2 version', 'ie >= 9']
         }
-    },
+    }//,
 
-    scripts: {
-        bundles: [
-            {
-                name: 'es5',
-                src: paths.scripts + 'es5/app.js',
-                settings: {
-                    bundle: true
-                }
-            },
-            {
-                name: 'es6',
-                src: paths.scripts + 'es6/app.js',
-                settings: {
-                    bundle: true,
-                    type: 'es6'
-                }
-            },
-            {
-                name: 'typescript',
-                src: paths.scripts + 'ts/app.ts',
-                settings: {
-                    bundle: true,
-                    type: 'ts'
-                }
-            },
-            {
-                name: 'tests',
-                src: paths.tests + '*.spec.js'
-            },
-            {
-                name: 'tasks',
-                src: [paths.tasks + '**/*.js', './gulpfile.js']
-            }
-        ],
-        settings: {
-            banner: banner,
-            bundle: false
-        }
-    },
+    //scripts: {
+    //    bundles: [
+    //        {
+    //            name: 'es5',
+    //            src: paths.scripts + 'es5/app.js',
+    //            settings: {
+    //                bundle: true
+    //            }
+    //        },
+    //        {
+    //            name: 'es6',
+    //            src: paths.scripts + 'es6/app.js',
+    //            settings: {
+    //                bundle: true,
+    //                type: 'es6'
+    //            }
+    //        },
+    //        {
+    //            name: 'typescript',
+    //            src: paths.scripts + 'ts/app.ts',
+    //            settings: {
+    //                bundle: true,
+    //                type: 'ts'
+    //            }
+    //        },
+    //        {
+    //            name: 'tests',
+    //            src: paths.tests + '*.spec.js'
+    //        },
+    //        {
+    //            name: 'tasks',
+    //            src: [paths.tasks + '**/*.js', './gulpfile.js']
+    //        }
+    //    ],
+    //    settings: {
+    //        banner: banner,
+    //        bundle: false
+    //    }
+    //},
 
-    tests: {
-        src: paths.tests + '*.spec.js',
-        reporter: 'list'
-    }
+    //tests: {
+    //    src: paths.tests + '*.spec.js',
+    //    reporter: 'list'
+    //}
 };

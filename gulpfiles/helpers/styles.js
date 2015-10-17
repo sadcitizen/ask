@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
+    del = require('del'),
     gulp = require('gulp'),
     sass = require('gulp-sass'),
     csso = require('gulp-csso'),
@@ -16,14 +17,20 @@ var _ = require('lodash'),
         browsers: ['last 2 version', 'ie >= 9']
     };
 
+function trimLastPart(target, separator) {
+    return target.split(separator).slice(0, -1).join(separator);
+}
+
 module.exports = function (options) {
     _.defaults(config.styles.settings, defaults, options);
 
     function build(bundle) {
         var settings = _.defaults(bundle.settings || {}, config.styles.settings),
-            dest = bundle.output.split('/').slice(0, -1).join('/'),
+            dest = trimLastPart(bundle.output, '/'),
             filename = bundle.output.split('/').pop(),
-            basename = filename.split('.').slice(0, -1).join('.');
+            basename = trimLastPart(filename, '.');
+
+        del(dest + '/' + basename + '.*');
 
         return gulp.src(bundle.entry)
             .pipe(plumber())

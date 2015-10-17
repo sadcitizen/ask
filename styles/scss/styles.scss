@@ -1,0 +1,12 @@
+/********************************
+ * styles
+ ********************************/
+a {
+    color: #cc0000;
+    text-decoration: underline;
+
+    &:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}

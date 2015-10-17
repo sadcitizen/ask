@@ -5,6 +5,6 @@ var gulp = require('gulp'),
     config = require('../config.js').tests;
 
 gulp.task('tests', function () {
-    return gulp.src(config.src, { read: false })
+    return gulp.src(config.entry, { read: false })
         .pipe(mocha({ reporter: config.reporter || 'spec' }));
 });

@@ -1,48 +1,25 @@
 'use strict';
 
 var gulp = require('gulp'),
-    styles = require('../helpers/styles'),
-    scripts = require('../helpers/scripts');
+    scss = require('../helpers/scss'),
+    js = require('../helpers/javascript');
 
 gulp.task('build', ['build:styles', 'build:scripts']);
 
 gulp.task('build:styles', function () {
-    styles({
-        compress: false,
-        sourcemaps: true
-    });
+    scss({ compress: false, sourcemaps: true });
 });
 
 gulp.task('build:scripts', function () {
-    scripts({
-        check: false,
-        compress: false,
-        sourcemaps: true
-    });
+    js({ check: false, compress: false, sourcemaps: true });
 });
 
 gulp.task('build:development', function () {
-    styles({
-        compress: true,
-        sourcemaps: true
-    });
-
-    scripts({
-        check: true,
-        compress: true,
-        sourcemaps: true
-    });
+    scss({ compress: true, sourcemaps: true });
+    js({ check: true, compress: true, sourcemaps: true });
 });
 
 gulp.task('build:production', function () {
-    styles({
-        compress: true,
-        sourcemaps: false
-    });
-
-    scripts({
-        check: true,
-        compress: true,
-        sourcemaps: false
-    });
+    scss({ compress: true, sourcemaps: false });
+    js({ check: true, compress: true, sourcemaps: false });
 });

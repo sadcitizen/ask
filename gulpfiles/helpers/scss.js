@@ -23,29 +23,26 @@ function trimLastPart(target, separator) {
 }
 
 module.exports = function (options) {
-    _.defaults(config.styles.settings, defaults, options);
-
     function build(bundle) {
-        var settings = _.defaults(bundle.settings || {}, config.styles.settings),
+        var cfg = _.defaults({}, bundle.options || {}, config.styles.options, defaults),
             processors = [
-                autoprefixer({ browsers: settings.browsers, diff: true })
+                autoprefixer({ browsers: cfg.browsers, diff: true })
             ],
             dest = trimLastPart(bundle.output, '/'),
-            filename = bundle.output.split('/').pop(),
-            basename = trimLastPart(filename, '.');
+            basename = trimLastPart(bundle.output.split('/').pop(), '.');
 
         del(dest + '/' + basename + '.*');
 
         return gulp.src(bundle.entry)
             .pipe(plumber())
-            .pipe(gulpif(settings.sourcemaps, sourcemaps.init()))
+            .pipe(gulpif(options.sourcemaps, sourcemaps.init()))
             .pipe(sass())
-            .pipe(gulpif(settings.browsers.length, postcss(processors)))
-            .pipe(gulpif(settings.compress, csso()))
+            .pipe(gulpif(cfg.browsers.length, postcss(processors)))
+            .pipe(gulpif(options.compress, csso()))
             .pipe(rename({ basename: basename }))
-            .pipe(gulpif(settings.compress, rename({ suffix: '.min' })))
-            .pipe(gulpif(settings.banner.length, header(settings.banner)))
-            .pipe(gulpif(settings.sourcemaps, sourcemaps.write('.')))
+            .pipe(gulpif(options.compress, rename({ suffix: '.min' })))
+            .pipe(gulpif(cfg.banner.length, header(cfg.banner)))
+            .pipe(gulpif(options.sourcemaps, sourcemaps.write('.')))
             .pipe(plumber.stop())
             .pipe(gulp.dest(dest));
     }

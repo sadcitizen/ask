@@ -36,12 +36,14 @@
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-todo": "^2.5.1",
+    "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.4",
     "jshint-stylish": "^1.0.1",
     "lodash": "^3.7.0",
     "mocha": "^2.2.4",
     "require-dir": "^0.3.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
   }
 }

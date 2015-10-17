@@ -9,7 +9,8 @@ var _ = require('lodash'),
     rename = require('gulp-rename'),
     header = require('gulp-header'),
     plumber = require('gulp-plumber'),
-    prefix = require('gulp-autoprefixer'),
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     config = require('../config.js'),
     defaults = {
@@ -26,6 +27,9 @@ module.exports = function (options) {
 
     function build(bundle) {
         var settings = _.defaults(bundle.settings || {}, config.styles.settings),
+            processors = [
+                autoprefixer({ browsers: settings.browsers, diff: true })
+            ],
             dest = trimLastPart(bundle.output, '/'),
             filename = bundle.output.split('/').pop(),
             basename = trimLastPart(filename, '.');
@@ -36,7 +40,7 @@ module.exports = function (options) {
             .pipe(plumber())
             .pipe(gulpif(settings.sourcemaps, sourcemaps.init()))
             .pipe(sass())
-            .pipe(gulpif(settings.browsers.length, prefix({ browsers: settings.browsers })))
+            .pipe(gulpif(settings.browsers.length, postcss(processors)))
             .pipe(gulpif(settings.compress, csso()))
             .pipe(rename({ basename: basename }))
             .pipe(gulpif(settings.compress, rename({ suffix: '.min' })))

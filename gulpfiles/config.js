@@ -47,9 +47,11 @@ module.exports = {
         bundles: [
             {
                 entry: paths.scripts + 'es6/app.js',
+                all: paths.scripts + 'es6/**/*.js',
                 output: paths.dest + paths.js + 'es6/app.js',
                 options: {
-                    banner: ''
+                    banner: '',
+                    check: true
                 }
             },
             {

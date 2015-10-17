@@ -5,26 +5,26 @@ var _ = require('lodash'),
     jscs = require('gulp-jscs'),
     hint = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
-    config = require('../config.js'),
-    types = ['es3', 'es5', 'es6'],
-    defaults = {
-        type: 'es5'
-    };
+    config = require('../config.js');
 
 gulp.task('check', function () {
-    function check(bundle) {
-        return gulp.src(bundle.src)
+    function check(source) {
+        console.log(source);
+        return gulp.src(source)
             .pipe(jscs())
             .pipe(hint('./.jshintrc'))
             .pipe(hint.reporter(stylish));
     }
 
-    _.defaults(config.scripts.settings, defaults);
+    var bundles = [];
 
-    config.scripts.bundles.forEach(function (bundle) {
-        var settings = _.defaults(bundle.settings || {}, config.scripts.settings);
-        if (types.indexOf(settings.type) !== -1) {
-            check(bundle);
+    config.javascript.bundles.forEach(function (bundle) {
+        if (bundle.options && bundle.options.check && bundle.all) {
+            bundles.push(bundle.all);
         }
     });
+
+    bundles.push.apply(bundles, config.common.entry);
+
+    bundles.forEach(check);
 });

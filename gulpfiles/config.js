@@ -31,60 +31,65 @@ module.exports = {
             {
                 entry: paths.styles + 'scss/styles.ie8.scss',
                 output: paths.dest + paths.css + 'scss/styles.ie8.css',
-                settings: {
+                options: {
                     banner: '',
                     browsers: ['last 2 version', 'ie >= 8']
                 }
             }
         ],
-        settings: {
+        options: {
             banner: banner,
             browsers: ['last 2 version', 'ie >= 9']
         }
-    }//,
+    },
 
-    //scripts: {
-    //    bundles: [
-    //        {
-    //            name: 'es5',
-    //            src: paths.scripts + 'es5/app.js',
-    //            settings: {
-    //                bundle: true
-    //            }
-    //        },
-    //        {
-    //            name: 'es6',
-    //            src: paths.scripts + 'es6/app.js',
-    //            settings: {
-    //                bundle: true,
-    //                type: 'es6'
-    //            }
-    //        },
-    //        {
-    //            name: 'typescript',
-    //            src: paths.scripts + 'ts/app.ts',
-    //            settings: {
-    //                bundle: true,
-    //                type: 'ts'
-    //            }
-    //        },
-    //        {
-    //            name: 'tests',
-    //            src: paths.tests + '*.spec.js'
-    //        },
-    //        {
-    //            name: 'tasks',
-    //            src: [paths.tasks + '**/*.js', './gulpfile.js']
-    //        }
-    //    ],
-    //    settings: {
-    //        banner: banner,
-    //        bundle: false
-    //    }
-    //},
+    javascript: {
+        bundles: [
+            {
+                entry: paths.scripts + 'es6/app.js',
+                output: paths.dest + paths.js + 'es6/app.js',
+                options: {
+                    banner: ''
+                }
+            },
+            {
+                entry: paths.scripts + 'es6/vendor.js',
+                output: paths.dest + paths.js + 'es6/vendor.js'
+            }
+        ],
+        options: {
+            banner: banner
+        }
+    },
 
-    //tests: {
-    //    src: paths.tests + '*.spec.js',
-    //    reporter: 'list'
-    //}
+    typescript: {
+        bundles: [
+            {
+                entry: paths.scripts + 'ts/app.ts',
+                output: paths.dest + paths.js + 'ts/app.ts',
+                options: {
+                    banner: ''
+                }
+            },
+            {
+                entry: paths.scripts + 'ts/vendor.ts',
+                output: paths.dest + paths.js + 'ts/vendor.ts'
+            }
+        ],
+        options: {
+            banner: banner
+        }
+    },
+
+    /**
+     * Only for code style checking.
+     */
+    common: {
+        entry: [paths.tests + '*.spec.js', paths.tasks + '**/*.js', './gulpfile.js']
+    },
+
+    tests: {
+        entry: paths.tests + '*.spec.js',
+        reporter: 'list'
+    }
 };

@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
     del = require('del'),
+    path = require('path'),
     gulp = require('gulp'),
     sass = require('gulp-sass'),
     csso = require('gulp-csso'),
@@ -18,18 +19,14 @@ var _ = require('lodash'),
         browsers: ['last 2 version', 'ie >= 9']
     };
 
-function trimLastPart(target, separator) {
-    return target.split(separator).slice(0, -1).join(separator);
-}
-
 module.exports = function (options) {
     function build(bundle) {
         var cfg = _.defaults({}, bundle.options || {}, config.styles.options, defaults),
             processors = [
                 autoprefixer({ browsers: cfg.browsers, diff: true })
             ],
-            dest = trimLastPart(bundle.output, '/'),
-            basename = trimLastPart(bundle.output.split('/').pop(), '.');
+            dest = path.dirname(bundle.output),
+            basename = path.basename(bundle.output, '.css');
 
         del(dest + '/' + basename + '.*');
 

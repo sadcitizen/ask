@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
+    path = require('path'),
     del = require('del'),
     gulp = require('gulp'),
     gulpif = require('gulp-if'),
@@ -19,16 +20,12 @@ var _ = require('lodash'),
         watch: false
     };
 
-function trimLastPart(target, separator) {
-    return target.split(separator).slice(0, -1).join(separator);
-}
-
 module.exports = function (options) {
     function build(bundle) {
         var cfg = _.defaults({}, bundle.options || {}, config.javascript.options, defaults),
             bundler = browserify({ entries: bundle.entry, debug: true }).transform(babelify),
-            dest = trimLastPart(bundle.output, '/'),
-            basename = trimLastPart(bundle.output.split('/').pop(), '.');
+            dest = path.dirname(bundle.output),
+            basename = path.basename(bundle.output, '.js');
 
         del(dest + '/' + basename + '.*');
 
